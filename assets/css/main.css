@@ -18,9 +18,11 @@ h1#page-title.page__title { font-size: 2rem; /* Set your desired font size */ }
 
 .two-column-layout > .column { flex: 1; min-width: 300px; }
 
-details summary { cursor: pointer; font-weight: 600; margin-bottom: 0.25em; font-size: 1em; /* normal size for summary */ color: black; /* summary color */ }
+details { font-size: 0.8em; /* make everything smaller by default */ }
 
-details > *:not(summary) { font-size: 0.9em; /* slightly smaller content */ color: rgba(0, 0, 0, 0.75); padding-left: 1.5em; /* indent content */ }
+details summary { font-size: 1rem; /* normal size for summary */ cursor: pointer; font-weight: 600; margin-bottom: 0.25em; color: black; /* summary color */ }
+
+details > *:not(summary) { color: rgba(0, 0, 0, 0.75); padding-left: 1.5em; /* indent content */ display: block; }
 
 /* ========================================================================== Dirt skin ========================================================================== */
 /* Colors */

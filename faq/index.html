@@ -179,13 +179,34 @@
 
     <section class="page__content" itemprop="text">
       <script>
-document.addEventListener("DOMContentLoaded", function () {
-  if (location.hash) {
-    const el = document.querySelector(location.hash);
-    if (el && el.tagName.toLowerCase() === "details") {
-      el.open = true;
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  function openDetails(hash) {
+    if (!hash) return;
+    const el = document.querySelector(hash);
+    if (!el || el.tagName.toLowerCase() !== "details") return;
+
+    // Open the <details>
+    el.open = true;
+
+    // Scroll AFTER a small delay so the browser can adjust layout
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
   }
+
+  // Open on initial load if URL has a hash
+  openDetails(location.hash);
+
+  // Open when hash changes (clicking internal links)
+  window.addEventListener("hashchange", () => openDetails(location.hash));
+
+  // Open when user clicks an internal link
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", (e) => {
+      // hash hasn’t updated yet, so wait until next tick
+      setTimeout(() => openDetails(location.hash), 0);
+    });
+  });
 });
 </script>
 
@@ -216,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   <p>If you’re receiving emails from the SUGUNA Mailchimp mailing list (sent from a “usydnorthamerica.org” email address), you are a member. Membership does not need to be renewed and is ongoing unless you request removal (this is now <a href="#mailing-list-leaving-suguna">a self-serve process</a>, as is <a href="#membership-details-updates">updating your membership details</a>).</p>
 
-  <p>If you cannot locate an email, and are unsure of your status, please <a href="#contact-us">contact us</a> first and we can check otherwise you may create a duplicate registration.</p>
+  <p>If you cannot locate an email, and are unsure of your status, please <a href="#email-us">contact us</a> first and we can check otherwise you may create a duplicate registration.</p>
 
 </details>
 
@@ -270,19 +291,25 @@ SUGUNA is a US-based 501(c)(7) tax-exempt social club. Our <a href="/assets/down
 
   <ol>
     <li>
-      <p>Click <strong>Update your preferences</strong> link at end of any email sent via the mailing list. See below for where to find this link: <img src="/assets/images/suguna-update-email-1.png" alt="Email footer" />.</p>
+      <p>Click <strong>Update your preferences</strong> link at end of any email sent via the mailing list. See below for where to find this link:</p>
+
+      <p><img src="/assets/images/suguna-update-email-1.png" alt="Email footer" />.</p>
     </li>
     <li>
-      <p>Clicking on the link will send you to a webpage with a button to “Email Me a Link”, see below: <img src="/assets/images/suguna-update-email-2.png" alt="Email Me a Link page" />.</p>
+      <p>Clicking on the link will send you to a webpage with a button to “Email Me a Link”, see below:</p>
+
+      <p><img src="/assets/images/suguna-update-email-2.png" alt="Email Me a Link page" />.</p>
     </li>
     <li>
-      <p>Clicking this button will send you an email with a link to a page that will allow you to modify your details. On this page you can update information (e.g. email address, location) that needs to be changed, and then save. <img src="/assets/images/suguna-update-email-3.png" alt="Details update page" />.</p>
+      <p>Clicking this button will send you an email with a link to a page that will allow you to modify your details. On this page you can update information (e.g. email address, location) that needs to be changed, and then save.</p>
+
+      <p><img src="/assets/images/suguna-update-email-3.png" alt="Details update page" />.</p>
     </li>
   </ol>
 
   <p>The link that is emailed to you expires within 24 hours for security and ensures that only you can modify your own preferences, otherwise anyone with access to the email could change your details.</p>
 
-  <p>If you cannot find an email, or are unsure if you are signed up as a member, <a href="#contact-us">contact us</a>.</p>
+  <p>If you cannot find an email, or are unsure if you are signed up as a member, <a href="#email-us">contact us</a>.</p>
 
   <p>Note: If you unsubscribe completely, you will <strong>no longer be a SUGUNA member</strong>.</p>
 
@@ -297,9 +324,9 @@ SUGUNA is a US-based 501(c)(7) tax-exempt social club. Our <a href="/assets/down
 
   <ol>
     <li><strong>Follow us on <a href="https://www.linkedin.com/">LinkedIn</a> and/or <a href="https://www.facebook.com/">Facebook</a></strong> — helps boost our profile and reach more people.</li>
-    <li><strong>Volunteer to run or help with events</strong> — <a href="#contact-us">contact us</a>. We coordinate with other nearby members and the University’s “Glocal” meetup system.</li>
+    <li><strong>Volunteer to run or help with events</strong> — <a href="#email-us">contact us</a>. We coordinate with other nearby members and the University’s “Glocal” meetup system.</li>
     <li><strong>Attend the Annual General Meeting (AGM)</strong> — the next AGM is anticipated in the first half of 2025. This is where Board nominations are discussed and is an opportunity to meet members virtually across North America.</li>
-    <li><strong>Share your ideas</strong> — if you have something else in mind, <a href="#contact-us">contact us</a>.</li>
+    <li><strong>Share your ideas</strong> — if you have something else in mind, <a href="#email-us">contact us</a>.</li>
   </ol>
 
 </details>
@@ -325,7 +352,7 @@ through to the University of Sydney.</p>
 
   <p>In addition, although we are a <em>tax-exempt</em> charity, as a 501(c)(7)
 membership benefit organization, contributions are <strong>not</strong>
-<em>tax-deductible</em> for the member. Please <a href="#contact-us">contact
+<em>tax-deductible</em> for the member. Please <a href="#email-us">contact
 us</a> for details on how to contribute.</p>
 
 </details>
@@ -407,14 +434,14 @@ receive from the list and you will be removed from this mailing list
 time, via the <a href="https://usydnorthamerica.org/">SUGUNA website</a>.</p>
 
   <p>If you can’t find any emails from us (search for emails from
-“<strong>usydnorthamerica.org</strong>” ), please <a href="#contact-us">contact
+“<strong>usydnorthamerica.org</strong>” ), please <a href="#email-us">contact
 us</a>.</p>
 
 </details>
 
 <h2 id="contact-us">Contact us</h2>
 
-<details id="contact-us">
+<details id="email-us">
   <summary>I still have questions! Who do I contact?</summary>
 
   <p>Email us at: <a href="#" align="center" class="email-link" data-contact="YWx1bW5pLnN1Z3VuYUB1c3lkbm9ydGhhbWVyaWNhLm9yZw==">Email us</a></p>
