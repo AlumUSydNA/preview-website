@@ -1,1 +1,1 @@
-Sitemap: https://usydnorthamerica.org/sitemap.xml
+Sitemap: /sitemap.xml
